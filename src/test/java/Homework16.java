@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import javax.swing.*;
 import java.time.Duration;
 
 public class Homework16 extends BaseTest{
@@ -29,9 +30,9 @@ public class Homework16 extends BaseTest{
         registrationLink.click();
 
 //    Verify redirect to Registration page using Assert method
-        String expectedUrl = "https://bbb.testpro.io/registration.php";
-        String actualUrl = driver.getCurrentUrl();
-        Assert.assertEquals(actualUrl, expectedUrl);
+        String registrationUrl = "https://bbb.testpro.io/registration.php";
+        Assert.assertEquals(driver.getCurrentUrl(), registrationUrl);
+
 // quit driver
        driver.quit();
 
