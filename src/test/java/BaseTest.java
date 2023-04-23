@@ -84,7 +84,6 @@ WebDriver driver;
     public void choosePlayList () throws InterruptedException {
         // choose the Playlist to add song too
         WebElement choosePlaylist = driver.findElement(By.xpath("//section[@id='songResultsWrapper']//li[@class='playlist'][normalize-space()='rrPlaylist']"));
-        // //section[@id='songResultsWrapper']//li[@class='playlist'][normalize-space()='rrPlaylist']
         choosePlaylist.click();
         Thread.sleep(2000);
     }
