@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -93,5 +94,24 @@ WebDriver driver;
         //Verify that notification message has the text, "Added 1 song into {rrPlaylist}"
         WebElement notificationMessage = driver.findElement(By.cssSelector("div.success.show"));
         return notificationMessage.getText();
+    }
+
+    public void nxtSongBtn () throws InterruptedException {
+    WebElement nextSongBtn = driver.findElement(By.xpath("//i[@title='Play next song']"));
+    nextSongBtn.click();
+    Thread.sleep(3000);
+
+    }
+
+    public void PlayButton () throws InterruptedException {
+    WebElement playBtn = driver.findElement(By.xpath("//span[@title='Play or resume']//i[@class='fa fa-play']"));
+    playBtn.click();
+    Thread.sleep(3000);
+    }
+
+    public  boolean soundbarVisualizer() {
+    WebElement soundBar = driver.findElement(By.xpath("//img[@alt='Sound bars']"));
+    return soundBar.isDisplayed();
+
     }
 }
