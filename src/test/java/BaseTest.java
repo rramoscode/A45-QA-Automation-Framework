@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import java.time.Duration;
 
@@ -19,14 +20,16 @@ WebDriver driver;
         WebDriverManager.chromedriver().setup();
     }
     @BeforeMethod
-    public void setUpBrowser () {
+    @Parameters ({"Hw19BaseURL"})
 
+    public void setUpBrowser (String Hw19BaseURL) {
 //     Added ChromeOptions argument below to fix websocket error
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
 
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.get(Hw19BaseURL);
 
     }
 
@@ -37,6 +40,18 @@ WebDriver driver;
 
     public void openloginUrl() {
         driver.get("https://bbb.testpro.io/");
+    }
+    public void login(String email, String password) {
+
+        WebElement emailField = driver.findElement(By.cssSelector("[type='email']"));
+        emailField.sendKeys(email);
+
+        WebElement passwordField = driver.findElement(By.cssSelector("[type='password']"));
+        passwordField.sendKeys(password);
+
+        WebElement loginButton = driver.findElement(By.cssSelector(("[type='submit']")));
+        loginButton.click();
+
     }
 
     public void enterEmail(String email) {
@@ -115,4 +130,27 @@ WebDriver driver;
     return soundBar.isDisplayed();
 
     }
+
+    public void playlistToBeDeleted () {
+        WebElement selectThePlaylist = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist2']"));
+        selectThePlaylist.click();
+    }
+
+    public void deletePlaylistRedBtn () {
+        WebElement deletePlaylistBtn = driver.findElement(By.cssSelector("[title='Delete this playlist']"));
+        deletePlaylistBtn.click();
+
+    }
+
+    public String getDeletedPlaylistMsg (){
+        WebElement deletedPlaylistMsg = driver.findElement(By.cssSelector("div.success.show"));
+        return deletedPlaylistMsg.getText();
+    }
+
+//    // helper method for non-empty playlist
+//    public void deleteThePlaylistOk () {
+//        WebElement deleteConformation = driver.findElement(By.xpath("//button[normalize-space()='Ok']"));
+//        deleteConformation.click();
+//
+//    }
 }
