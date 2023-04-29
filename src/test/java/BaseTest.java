@@ -118,7 +118,6 @@ WebDriver driver;
 
     }
 
-
     public void PlayButton () throws InterruptedException {
     WebElement playBtn = driver.findElement(By.xpath("//span[@title='Play or resume']//i[@class='fa fa-play']"));
     playBtn.click();
