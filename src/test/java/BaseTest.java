@@ -82,61 +82,70 @@ public class BaseTest {
 
     public void searchSong (String songTitleKeyword) throws InterruptedException {
         //Search for a song (choose any song of your choice)
-        WebElement searchFeild = driver.findElement(By.cssSelector("[name='q']"));
+//        WebElement searchFeild = driver.findElement(By.cssSelector("[name='q']"));
+        WebElement searchFeild = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[name='q']")));
         searchFeild.sendKeys(songTitleKeyword);
-        Thread.sleep(2000);
+//       Thread.sleep(2000);
     }
 
     public void clickViewAllBtn () throws InterruptedException {
         // click View All to display the search results
-        WebElement viewAllSearchResults = driver.findElement(By.xpath("//button[@data-test='view-all-songs-btn']"));
+//        WebElement viewAllSearchResults = driver.findElement(By.xpath("//button[@data-test='view-all-songs-btn']"));
+        WebElement viewAllSearchResults = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-test='view-all-songs-btn']")));
         viewAllSearchResults.click();
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
     }
 
     public void selectFirstSongResult () throws InterruptedException {
         // click first song in the search results
-        WebElement firstSong = driver.findElement(By.cssSelector("section#songResultsWrapper tr.song-item td.title"));
+//        WebElement firstSong = driver.findElement(By.cssSelector("section#songResultsWrapper tr.song-item td.title"));
+        WebElement firstSong = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("section#songResultsWrapper tr.song-item td.title")));
         firstSong.click();
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
     }
 
     public void clickAddToBtn () throws InterruptedException {
         // click addTo button...
-        WebElement addToButton = driver.findElement(By.cssSelector("button[class='btn-add-to']"));
+//        WebElement addToButton = driver.findElement(By.cssSelector("button[class='btn-add-to']"));
+        WebElement addToButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[class='btn-add-to']")));
         addToButton.click();
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
     }
 
     public void choosePlayList () throws InterruptedException {
         // choose the Playlist to add song too
-        WebElement choosePlaylist = driver.findElement(By.xpath("//section[@id='songResultsWrapper']//li[@class='playlist'][normalize-space()='rrPlaylist']"));
+//        WebElement choosePlaylist = driver.findElement(By.xpath("//section[@id='songResultsWrapper']//li[@class='playlist'][normalize-space()='rrPlaylist']"));
+        WebElement choosePlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//section[@id='songResultsWrapper']//li[@class='playlist'][normalize-space()='rrPlaylist']")));
         choosePlaylist.click();
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
     }
 
     public String getNotificationText () {
-        // Verify that the notification message appears.
-        //Verify that notification message has the text, "Added 1 song into {rrPlaylist}"
-        WebElement notificationMessage = driver.findElement(By.cssSelector("div.success.show"));
+        // /Verify that the notification message appears.
+        // /Verify that notification message has the text, "Added 1 song into {rrPlaylist}"
+//        WebElement notificationMessage = driver.findElement(By.cssSelector("div.success.show"));
+        WebElement notificationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
         return notificationMessage.getText();
     }
 
     public void nxtSongBtn () throws InterruptedException {
-    WebElement nextSongBtn = driver.findElement(By.xpath("//i[@title='Play next song']"));
+ //   WebElement nextSongBtn = driver.findElement(By.xpath("//i[@title='Play next song']"));
+    WebElement nextSongBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@title='Play next song']")));
     nextSongBtn.click();
-    Thread.sleep(3000);
+//    Thread.sleep(3000);
 
     }
 
     public void PlayButton () throws InterruptedException {
-    WebElement playBtn = driver.findElement(By.xpath("//span[@title='Play or resume']//i[@class='fa fa-play']"));
+//    WebElement playBtn = driver.findElement(By.xpath("//span[@title='Play or resume']//i[@class='fa fa-play']"));
+    WebElement playBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@title='Play or resume']//i[@class='fa fa-play']")));
     playBtn.click();
-    Thread.sleep(3000);
+//    Thread.sleep(3000);
     }
 
     public  boolean soundbarVisualizer() {
-    WebElement soundBar = driver.findElement(By.xpath("//img[@alt='Sound bars']"));
+//    WebElement soundBar = driver.findElement(By.xpath("//img[@alt='Sound bars']"));
+    WebElement soundBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='Sound bars']")));
     return soundBar.isDisplayed();
 
     }
@@ -149,7 +158,7 @@ public class BaseTest {
 
     public void deletePlaylistRedBtn () {
 //        WebElement deletePlaylistBtn = driver.findElement(By.cssSelector("[title='Delete this playlist']"));
-        WebElement deletePlaylistBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[title='Delete this playlist3']")));
+        WebElement deletePlaylistBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[title='Delete this playlist']")));
         deletePlaylistBtn.click();
 
     }
