@@ -9,11 +9,16 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 
+
 public class BaseTest {
-WebDriver driver;
+//declaration that creates a static variable named wait of type WebDriverWait class.
+    static WebDriverWait wait;
+    WebDriver driver;
+
 // Test annotation and the helper/reusable methods
     @BeforeSuite
     static void setupClass() {
@@ -28,9 +33,11 @@ WebDriver driver;
         options.addArguments("--remote-allow-origins=*");
 
         driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+// instance - initializes the wait variable with a new WebDriverWait object that will wait up to 10 seconds for the expected condition to be met.
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get(Hw19BaseURL);
-
     }
 
     @AfterMethod
@@ -42,14 +49,18 @@ WebDriver driver;
         driver.get("https://bbb.testpro.io/");
     }
     public void login(String email, String password) {
+// Initialize and wait till element(link) became clickable - timeout in 10 seconds
 
-        WebElement emailField = driver.findElement(By.cssSelector("[type='email']"));
+//        WebElement emailField = driver.findElement(By.cssSelector("[type='email']"));
+        WebElement emailField = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[type='email']")));
         emailField.sendKeys(email);
 
-        WebElement passwordField = driver.findElement(By.cssSelector("[type='password']"));
+//       WebElement passwordField = driver.findElement(By.cssSelector("[type='password']"));
+        WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[type='password']")));
         passwordField.sendKeys(password);
 
-        WebElement loginButton = driver.findElement(By.cssSelector(("[type='submit']")));
+//        WebElement loginButton = driver.findElement(By.cssSelector(("[type='submit']")));
+        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[type='submit']")));
         loginButton.click();
 
     }
@@ -131,18 +142,21 @@ WebDriver driver;
     }
 
     public void playlistToBeDeleted () {
-        WebElement selectThePlaylist = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist2']"));
+//        WebElement selectThePlaylist = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist2']"));
+        WebElement selectThePlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='rrPlaylist3']")));
         selectThePlaylist.click();
     }
 
     public void deletePlaylistRedBtn () {
-        WebElement deletePlaylistBtn = driver.findElement(By.cssSelector("[title='Delete this playlist']"));
+//        WebElement deletePlaylistBtn = driver.findElement(By.cssSelector("[title='Delete this playlist']"));
+        WebElement deletePlaylistBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[title='Delete this playlist3']")));
         deletePlaylistBtn.click();
 
     }
 
     public String getDeletedPlaylistMsg (){
-        WebElement deletedPlaylistMsg = driver.findElement(By.cssSelector("div.success.show"));
+//        WebElement deletedPlaylistMsg = driver.findElement(By.cssSelector("div.success.show"));
+        WebElement deletedPlaylistMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
         return deletedPlaylistMsg.getText();
     }
 
