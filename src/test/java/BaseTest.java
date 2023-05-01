@@ -169,10 +169,10 @@ public class BaseTest {
         return deletedPlaylistMsg.getText();
     }
 
-//    // helper method for non-empty playlist
-//    public void deleteThePlaylistOk () {
-//        WebElement deleteConformation = driver.findElement(By.xpath("//button[normalize-space()='Ok']"));
-//        deleteConformation.click();
-//
-//    }
+    // helper method for non-empty playlist
+    public void deleteThePlaylistOk () {
+        WebElement deleteConformation = driver.findElement(By.xpath("//button[normalize-space()='Ok']"));
+        deleteConformation.click();
+
+    }
 }
