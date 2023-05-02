@@ -1,5 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -180,5 +181,25 @@ public class BaseTest {
         WebElement deleteConformation = driver.findElement(By.xpath("//button[normalize-space()='Ok']"));
         deleteConformation.click();
 
+    }
+
+    protected void doubleClickSelectPlaylist()  {
+        WebElement selectAPlaylist = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[normalize-space()='rrPlaylist3']")));
+        actions.doubleClick(selectAPlaylist).perform();
+    }
+
+    protected void doubleClickUpdatePlaylistName()  {
+        WebElement playlistNameField = driver.findElement(By.cssSelector("input[name='name']"));
+        actions.doubleClick(playlistNameField).perform();
+        playlistNameField.sendKeys(Keys.DELETE);
+        playlistNameField.sendKeys("rrPlaylist4");
+        playlistNameField.sendKeys(Keys.ENTER);
+
+    }
+
+    protected boolean newPlaylistNameExist() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[normalize-space()='rrPlaylist4']")));
+        WebElement playlistElement = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist4']"));
+        return playlistElement.isDisplayed();
     }
 }
