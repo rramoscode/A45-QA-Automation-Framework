@@ -183,12 +183,12 @@ public class BaseTest {
 
     }
 
-    protected void doubleClickSelectPlaylist()  {
+    public void doubleClickSelectPlaylist()  {
         WebElement selectAPlaylist = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[normalize-space()='rrPlaylist3']")));
         actions.doubleClick(selectAPlaylist).perform();
     }
 
-    protected void doubleClickUpdatePlaylistName()  {
+    public void doubleClickUpdatePlaylistName()  {
         WebElement playlistNameField = driver.findElement(By.cssSelector("input[name='name']"));
         actions.doubleClick(playlistNameField).perform();
         playlistNameField.sendKeys(Keys.DELETE);
@@ -197,7 +197,7 @@ public class BaseTest {
 
     }
 
-    protected boolean newPlaylistNameExist() {
+    public boolean newPlaylistNameExist() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[normalize-space()='rrPlaylist4']")));
         WebElement playlistElement = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist4']"));
         return playlistElement.isDisplayed();
