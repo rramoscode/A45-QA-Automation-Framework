@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -14,8 +13,6 @@ import org.testng.annotations.Parameters;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
-
-import org.openqa.selenium.interactions.Actions;
 
 public class BaseTest {
 //declaration that creates a static variable named wait of type WebDriverWait class.
@@ -197,7 +194,7 @@ public class BaseTest {
 
     }
 
-    public boolean newPlaylistNameExist() {
+    public boolean newPlaylistNameExist(String newPlaylistName) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[normalize-space()='rrPlaylist4']")));
         WebElement playlistElement = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist4']"));
         return playlistElement.isDisplayed();

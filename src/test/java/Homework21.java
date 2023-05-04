@@ -10,7 +10,7 @@ public class Homework21 extends BaseTest{
         login("demo@class.com" , "te$t$tudent");
         doubleClickSelectPlaylist();
         doubleClickUpdatePlaylistName();
-        Assert.assertTrue(newPlaylistNameExist());
+        Assert.assertTrue(newPlaylistNameExist(newPlaylistName));
 
     }
 
