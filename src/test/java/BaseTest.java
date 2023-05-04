@@ -194,7 +194,7 @@ public class BaseTest {
 
     }
 
-    public boolean newPlaylistNameExist(String newPlaylistName) {
+    public boolean newPlaylistNameExist() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[normalize-space()='rrPlaylist4']")));
         WebElement playlistElement = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist4']"));
         return playlistElement.isDisplayed();
