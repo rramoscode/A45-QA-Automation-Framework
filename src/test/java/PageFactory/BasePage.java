@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class BasePage {
-    WebDriver driver;
-    WebDriverWait wait;
-    Actions actions;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+    protected Actions actions;
 
     public BasePage (WebDriver givenDriver) {
 
@@ -23,11 +23,11 @@ public class BasePage {
 
     }
 
-    public WebElement findElement(WebElement locator) {
+    protected WebElement findElement(WebElement locator) {
         return wait.until(ExpectedConditions.visibilityOf(locator));
 
     }
-    public void doubleClick (WebElement locator) {
+    protected void doubleClick (WebElement locator) {
         actions.doubleClick(findElement(locator)).perform();
     }
 }

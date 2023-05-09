@@ -1,6 +1,5 @@
 package PageFactory;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,16 +20,19 @@ public class LoginPage extends BasePage{
      @FindBy(css = "[type='submit']")
     private WebElement loginButton;
 
-    public void enterEmail(String email) {
+    public LoginPage enterEmail(String email) {
         emailField.sendKeys(email);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public LoginPage enterPassword(String password) {
         passwordField.sendKeys(password);
+        return this;
     }
 
-    public void clickSubmit() {
+    public LoginPage  clickSubmit() {
         loginButton.click();
+        return this;
     }
     public void login() {
 
