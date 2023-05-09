@@ -18,7 +18,7 @@ public class BaseTest {
 //declaration that creates a static variable named wait of type WebDriverWait class.
     static WebDriverWait wait;
     public  static Actions actions;
-    WebDriver driver;
+   static WebDriver driver;
 
 // Test annotation and the helper/reusable methods
     @BeforeSuite
