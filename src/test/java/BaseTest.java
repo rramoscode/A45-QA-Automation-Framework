@@ -21,13 +21,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.time.Duration;
+import java.util.HashMap;
 
 public class BaseTest {
 //declaration that creates a static variable named wait of type WebDriverWait class.
-    static WebDriverWait wait;
-    public  static Actions actions;
-   static WebDriver driver;
+
+    public ThreadLocal<WebDriver> threadDriver;
+    public static WebDriverWait wait;
+   public  static Actions actions;
+   public static WebDriver driver;
 
 // Test annotation and the helper/reusable methods
     @BeforeSuite
@@ -46,22 +50,28 @@ public class BaseTest {
 //        driver = new ChromeDriver(options);
 
 //        driver =  new FirefoxDriver();
-
+        threadDriver = new ThreadLocal<>();
 // myBrowser method for Pbrowser parameter for variable browser
         driver = pickBrowser(System.getProperty("browser"));
+        threadDriver.set(driver);
 
-//       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+       getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 // instance - initializes the wait variable with a new WebDriverWait object that will wait up to 10 seconds for the expected condition to be met.
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 // create the actions object and passing the driver
-        actions = new Actions(driver);
+        actions = new Actions(getDriver());
         driver.get(Hw19BaseURL);
     }
 
     @AfterMethod
     public void tearDownBrowser () {
-        driver.quit();
+        getDriver().quit();
+        threadDriver.remove();
+    }
+
+    public WebDriver getDriver() {
+        return threadDriver.get();
     }
 // implementing Browser Functionality when setting parameter in gradle
     private static WebDriver pickBrowser(String browser) throws MalformedURLException {
@@ -91,12 +101,33 @@ public class BaseTest {
             case "grid-chrome":
                 caps.setCapability("browserName" , "chrome");
                 return driver = new RemoteWebDriver(URI.create(gridURl).toURL(),caps);
+            case "cloud":
+                return lambdaTest();
             default:
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--remote-allow-origins=*");
                 WebDriverManager.chromedriver().setup();
                 return driver = new ChromeDriver(options);
         }
+    }
+
+    public static WebDriver lambdaTest() throws MalformedURLException {
+     //   String username = "randy.ramos";
+     //   String accessToken = "qenmTC0k43LuI5riE7m2ZaRjubuWveKtWo2cr1675mTIIzOoLw";
+        String hubURL = "https://hub.lambdatest.com/wd/hub";
+
+        ChromeOptions browserOptions = new ChromeOptions();
+        browserOptions.setPlatformName("Windows 10");
+        browserOptions.setBrowserVersion("113.0");
+        HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+        ltOptions.put("username", "randy.ramos");
+        ltOptions.put("accessKey", "qenmTC0k43LuI5riE7m2ZaRjubuWveKtWo2cr1675mTIIzOoLw");
+        ltOptions.put("project", "Homework25");
+        ltOptions.put("w3c", true);
+        ltOptions.put("plugin", "java-testNG");
+        browserOptions.setCapability("LT:Options", ltOptions);
+
+        return new RemoteWebDriver(new URL(hubURL), browserOptions);
     }
 
     public void openloginUrl() {

@@ -11,8 +11,8 @@ import org.testng.annotations.Test;
         @Test
         public void renamePlaylist() {
 
-            LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
-            HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+            LoginPage loginPage = PageFactory.initElements(getDriver(), LoginPage.class);
+            HomePage homePage = PageFactory.initElements(getDriver(), HomePage.class);
 
             loginPage.login();
             homePage.doubleClickSelectPlaylist();
