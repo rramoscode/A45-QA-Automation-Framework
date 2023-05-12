@@ -8,7 +8,7 @@ public class Homework20 extends BaseTest{
 
         String deletedNotificationMsg = "Deleted playlist ";
 
-        login("demo@class.com" , "te$t$tudent");
+        login("randy.ramos@testpro.io" , "te$t$tudent");
         playlistToBeDeleted();
         deletePlaylistRedBtn();
         Assert.assertTrue(getDeletedPlaylistMsg().contains(deletedNotificationMsg));

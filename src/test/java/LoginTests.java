@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 import java.time.Duration;
 
@@ -12,30 +13,36 @@ public class LoginTests extends BaseTest {
 @Test
     public static void successfulLoginTest() {
 
-//      Added ChromeOptions argument below to fix websocket error
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--remote-allow-origins=*");
+////      Added ChromeOptions argument below to fix websocket error
+//    ChromeOptions options = new ChromeOptions();
+//    options.addArguments("--remote-allow-origins=*");
+//
+//        WebDriver driver = new ChromeDriver(options);
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//
+//        String url = "https://bbb.testpro.io/";
+//        driver.get(url);
+//
+//        WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
+//        emailField.sendKeys("randy.ramos@testpro.io");
+//
+//
+//        WebElement passwordField = driver.findElement(By.cssSelector("input[type='password']"));
+//        passwordField.sendKeys("te$t$tudent");
+//
+//
+//        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+//        loginButton.click();
+//// expected Result
 
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        String url = "https://bbb.testpro.io/";
-        driver.get(url);
+    LoginPage loginPage = new LoginPage(driver);
+    loginPage.enterEmail("randy.ramos@testpro.io");
+    loginPage.enterPassword("te$t$tudent");
+    loginPage.clickSubmit();
 
-        WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
-        emailField.sendKeys("randy.ramos@testpro.io");
-
-
-        WebElement passwordField = driver.findElement(By.cssSelector("input[type='password']"));
-        passwordField.sendKeys("te$t$tudent");
-
-
-        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
-        loginButton.click();
-// expected Result
-        WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
-        Assert.assertTrue(avatarIcon.isDisplayed());
-
+    WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
+    Assert.assertTrue(avatarIcon.isDisplayed());
         driver.quit();
 
     }

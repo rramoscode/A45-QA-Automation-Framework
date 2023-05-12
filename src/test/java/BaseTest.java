@@ -237,7 +237,7 @@ public class BaseTest {
 
     public void playlistToBeDeleted () {
 //        WebElement selectThePlaylist = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist2']"));
-        WebElement selectThePlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='rrPlaylist3']")));
+        WebElement selectThePlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='rrPlaylist2']")));
         selectThePlaylist.click();
     }
 

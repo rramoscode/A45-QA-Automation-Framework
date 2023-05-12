@@ -7,6 +7,12 @@
     <test name="Example Test" preserve-order="false">
         <classes>
             <class name="Homework24"/>
+            <class name="Homework20"/>
+            <class name="LoginTests">
+            <methods>
+                <include name="successfulLoginTest"/>
+            </methods>
+            </class>
             <class name="BaseTest"/>
         </classes>
     </test>
