@@ -10,7 +10,7 @@ public class Homework18 extends BaseTest {
     public void playSong() throws InterruptedException {
 
         openloginUrl();
-        enterEmail("demo@class.com");
+        enterEmail("randy.ramos@testpro.io");
         enterPassword("te$t$tudent");
         clickSubmit();
         nxtSongBtn();

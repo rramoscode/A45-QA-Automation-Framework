@@ -27,11 +27,11 @@ import java.util.HashMap;
 
 public class BaseTest {
 //declaration that creates a static variable named wait of type WebDriverWait class.
+  public ThreadLocal<WebDriver> threadDriver;
+  public WebDriverWait wait;
+  public Actions actions;
+  public WebDriver driver;
 
-    public ThreadLocal<WebDriver> threadDriver;
-    public static WebDriverWait wait;
-   public  static Actions actions;
-   public static WebDriver driver;
 
 // Test annotation and the helper/reusable methods
     @BeforeSuite
@@ -61,7 +61,7 @@ public class BaseTest {
         wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 // create the actions object and passing the driver
         actions = new Actions(getDriver());
-        driver.get(Hw19BaseURL);
+        getDriver().get(Hw19BaseURL);
     }
 
     @AfterMethod
@@ -74,7 +74,7 @@ public class BaseTest {
         return threadDriver.get();
     }
 // implementing Browser Functionality when setting parameter in gradle
-    private static WebDriver pickBrowser(String browser) throws MalformedURLException {
+    private  WebDriver pickBrowser(String browser) throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
         String gridURl = "http://192.168.1.22:4444";
         switch (browser) {
