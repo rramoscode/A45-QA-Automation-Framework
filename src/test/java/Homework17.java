@@ -4,14 +4,11 @@ import org.testng.annotations.Test;
 public class Homework17 extends BaseTest{
 
     @Test
-    public void addSongToPlaylist() throws InterruptedException {
+    public void addSongToPlaylist()  {
 
         String newSongAddedNotificationText = "Added 1 song into";
 
-        openloginUrl();
-        enterEmail("demo@class.com");
-        enterPassword("te$t$tudent");
-        clickSubmit();
+        login("randy.ramos@testpro.io" , "te$t$tudent");
         searchSong("Dark Days");
         clickViewAllBtn();
         selectFirstSongResult();

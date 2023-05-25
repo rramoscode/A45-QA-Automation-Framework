@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -13,52 +14,38 @@ public class LoginTests extends BaseTest {
 @Test
     public void successfulLoginTest() {
 
-//      Added ChromeOptions argument below to fix websocket error
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--remote-allow-origins=*");
-
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        String url = "https://bbb.testpro.io/";
-        driver.get(url);
-
-        WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
-        emailField.sendKeys("randy.ramos@testpro.io");
-
-
-        WebElement passwordField = driver.findElement(By.cssSelector("input[type='password']"));
-        passwordField.sendKeys("te$t$tudent");
-
-
-        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
-        loginButton.click();
+    login("randy.ramos@testpro.io" , "te$t$tudent");
 // expected Result
+    Assert.assertTrue(avatarIcon());
 
-//
-//    LoginPage loginPage = new LoginPage(driver);
-//    loginPage.enterEmail("randy.ramos@testpro.io");
-//    loginPage.enterPassword("te$t$tudent");
-//    loginPage.clickSubmit();
-
-    WebElement avatarIcon = driver.findElement(By.cssSelector("img[class='avatar']"));
-    Assert.assertTrue(avatarIcon.isDisplayed());
-        driver.quit();
 
     }
     @Test
-    public static void LoginEmptyEmailPasswordTest() {
+    public void LoginEmptyEmailPasswordTest() {
 
-//      Added ChromeOptions argument below to fix websocket error
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
+        login("" , "");
+//    Verify user stays on login page using Assert method
         String url = "https://bbb.testpro.io/";
         driver.get(url);
         Assert.assertEquals(driver.getCurrentUrl(), url);
-        driver.quit();
+
+    }
+
+    @Test
+    public void registrationNavigation() {
+
+        login("randy.ramos@testpro.io" , "te$t$tudent");
+
+//    find and click element registration link
+        registrationLink();
+
+//    Verify redirect to Registration page using Assert method
+        String expectedUrl = "https://bbb.testpro.io/registration.php";
+        String actualUrl = driver.getCurrentUrl();
+        Assert.assertEquals(actualUrl, expectedUrl);
+
+
+
+
     }
 }

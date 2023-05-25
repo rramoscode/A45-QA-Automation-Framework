@@ -26,8 +26,22 @@ test {
         systemProperty "browser" , System.getProperty("browser")
     }
 }
+
+
 task LoginTests(type: Test) {
     useTestNG() {
         suites "src/test/resources/Homework27.xml"
+    }
+}
+
+task testSmoke(type: Test) {
+    useTestNG() {
+        suites "src/test/resources/Smoke.xml"
+    }
+}
+
+task testRegression(type: Test) {
+    useTestNG() {
+        suites "src/test/resources/Regression.xml"
     }
 }

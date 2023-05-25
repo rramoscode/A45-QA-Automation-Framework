@@ -4,11 +4,11 @@ import org.testng.annotations.Test;
 public class Homework19 extends BaseTest {
 
     @Test
-    public void deletePlaylist () throws InterruptedException {
+    public void deletePlaylist ()  {
 
         String deletedNotificationMsg = "Deleted playlist ";
 
-        login("demo@class.com" , "te$t$tudent");
+        login("randy.ramos@testpro.io" , "te$t$tudent");
         playlistToBeDeleted();
         deletePlaylistRedBtn();
 // // method for non-empty playlist

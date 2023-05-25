@@ -12,6 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -26,24 +27,25 @@ import java.time.Duration;
 import java.util.HashMap;
 
 public class BaseTest {
-//declaration that creates a static variable named wait of type WebDriverWait class.
-  public ThreadLocal<WebDriver> threadDriver;
-  public WebDriverWait wait;
-  public Actions actions;
-  public WebDriver driver;
+    //declaration that creates a static variable named wait of type WebDriverWait class.
+    public ThreadLocal<WebDriver> threadDriver;
+    public WebDriverWait wait;
+    public Actions actions;
+    public WebDriver driver;
 
 
-// Test annotation and the helper/reusable methods
+    // Test annotation and the helper/reusable methods
     @BeforeSuite
     static void setupClass() {
 
 //        WebDriverManager.chromedriver().setup();
 //        WebDriverManager.firefoxdriver().setup();
     }
-    @BeforeMethod
-    @Parameters ({"Hw19BaseURL"})
 
-    public void setUpBrowser (String Hw19BaseURL) throws MalformedURLException {
+    @BeforeMethod
+    @Parameters({"Hw19BaseURL"})
+
+    public void setUpBrowser(String Hw19BaseURL) throws MalformedURLException {
 //     Added ChromeOptions argument below to fix websocket error
 //        ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--remote-allow-origins=*");
@@ -55,7 +57,7 @@ public class BaseTest {
         driver = pickBrowser(System.getProperty("browser"));
         threadDriver.set(driver);
 
-       getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 // instance - initializes the wait variable with a new WebDriverWait object that will wait up to 10 seconds for the expected condition to be met.
         wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
@@ -65,7 +67,7 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void tearDownBrowser () {
+    public void tearDownBrowser() {
         getDriver().quit();
         threadDriver.remove();
     }
@@ -73,8 +75,9 @@ public class BaseTest {
     public WebDriver getDriver() {
         return threadDriver.get();
     }
-// implementing Browser Functionality when setting parameter in gradle
-    private  WebDriver pickBrowser(String browser) throws MalformedURLException {
+
+    // implementing Browser Functionality when setting parameter in gradle
+    private WebDriver pickBrowser(String browser) throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
         String gridURl = "http://192.168.1.22:4444";
         switch (browser) {
@@ -90,17 +93,17 @@ public class BaseTest {
                 WebDriverManager.safaridriver().setup();
                 return driver = new SafariDriver();
             case "grid-firefox":
-                caps.setCapability("browserName" , "firefox");
-                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(),caps);
+                caps.setCapability("browserName", "firefox");
+                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(), caps);
             case "grid-edge":
-                caps.setCapability("browserName" , "MicrosoftEdge");
-                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(),caps);
+                caps.setCapability("browserName", "MicrosoftEdge");
+                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(), caps);
             case "grid-safari":
-                caps.setCapability("browserName" , "safari");
-                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(),caps);
+                caps.setCapability("browserName", "safari");
+                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(), caps);
             case "grid-chrome":
-                caps.setCapability("browserName" , "chrome");
-                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(),caps);
+                caps.setCapability("browserName", "chrome");
+                return driver = new RemoteWebDriver(URI.create(gridURl).toURL(), caps);
             case "cloud":
                 return lambdaTest();
             default:
@@ -112,8 +115,8 @@ public class BaseTest {
     }
 
     public static WebDriver lambdaTest() throws MalformedURLException {
-     //   String username = "randy.ramos";
-     //   String accessToken = "qenmTC0k43LuI5riE7m2ZaRjubuWveKtWo2cr1675mTIIzOoLw";
+        //   String username = "randy.ramos";
+        //   String accessToken = "qenmTC0k43LuI5riE7m2ZaRjubuWveKtWo2cr1675mTIIzOoLw";
         String hubURL = "https://hub.lambdatest.com/wd/hub";
 
         ChromeOptions browserOptions = new ChromeOptions();
@@ -133,6 +136,7 @@ public class BaseTest {
     public void openloginUrl() {
         driver.get("https://bbb.testpro.io/");
     }
+
     public void login(String email, String password) {
 // Initialize and wait till element(link) became clickable - timeout in 10 seconds
 
@@ -165,7 +169,17 @@ public class BaseTest {
         loginButton.click();
     }
 
-    public void searchSong (String songTitleKeyword) throws InterruptedException {
+    public boolean avatarIcon() {
+        WebElement avatarIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("img[class='avatar']")));
+        return avatarIcon.isDisplayed();
+    }
+
+    public void registrationLink() {
+        WebElement registrationLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#hel")));
+        registrationLink.click();
+    }
+
+      public void searchSong (String songTitleKeyword)  {
         //Search for a song (choose any song of your choice)
 //        WebElement searchFeild = driver.findElement(By.cssSelector("[name='q']"));
         WebElement searchFeild = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[name='q']")));
@@ -173,7 +187,7 @@ public class BaseTest {
 //       Thread.sleep(2000);
     }
 
-    public void clickViewAllBtn () throws InterruptedException {
+    public void clickViewAllBtn () {
         // click View All to display the search results
 //        WebElement viewAllSearchResults = driver.findElement(By.xpath("//button[@data-test='view-all-songs-btn']"));
         WebElement viewAllSearchResults = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-test='view-all-songs-btn']")));
@@ -181,7 +195,7 @@ public class BaseTest {
 //        Thread.sleep(2000);
     }
 
-    public void selectFirstSongResult () throws InterruptedException {
+    public void selectFirstSongResult ()  {
         // click first song in the search results
 //        WebElement firstSong = driver.findElement(By.cssSelector("section#songResultsWrapper tr.song-item td.title"));
         WebElement firstSong = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("section#songResultsWrapper tr.song-item td.title")));
@@ -189,7 +203,7 @@ public class BaseTest {
 //        Thread.sleep(2000);
     }
 
-    public void clickAddToBtn () throws InterruptedException {
+    public void clickAddToBtn ()  {
         // click addTo button...
 //        WebElement addToButton = driver.findElement(By.cssSelector("button[class='btn-add-to']"));
         WebElement addToButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[class='btn-add-to']")));
@@ -197,7 +211,7 @@ public class BaseTest {
 //        Thread.sleep(2000);
     }
 
-    public void choosePlayList () throws InterruptedException {
+    public void choosePlayList ()  {
         // choose the Playlist to add song too
 //        WebElement choosePlaylist = driver.findElement(By.xpath("//section[@id='songResultsWrapper']//li[@class='playlist'][normalize-space()='rrPlaylist']"));
         WebElement choosePlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//section[@id='songResultsWrapper']//li[@class='playlist'][normalize-space()='rrPlaylist']")));
@@ -213,15 +227,14 @@ public class BaseTest {
         return notificationMessage.getText();
     }
 
-    public void nxtSongBtn () throws InterruptedException {
- //   WebElement nextSongBtn = driver.findElement(By.xpath("//i[@title='Play next song']"));
-    WebElement nextSongBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@title='Play next song']")));
+    public void nxtSongBtn ()  {//   WebElement nextSongBtn = driver.findElement(By.xpath("//i[@title='Play next song']"));
+   WebElement nextSongBtn = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//i[@data-testid='play-next-btn']")));
     nextSongBtn.click();
 //    Thread.sleep(3000);
 
     }
 
-    public void PlayButton () throws InterruptedException {
+    public void PlayButton ()  {
 //    WebElement playBtn = driver.findElement(By.xpath("//span[@title='Play or resume']//i[@class='fa fa-play']"));
     WebElement playBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@title='Play or resume']//i[@class='fa fa-play']")));
     playBtn.click();
@@ -237,13 +250,13 @@ public class BaseTest {
 
     public void playlistToBeDeleted () {
 //        WebElement selectThePlaylist = driver.findElement(By.xpath("//a[normalize-space()='rrPlaylist2']"));
-        WebElement selectThePlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='rrPlaylist2']")));
+        WebElement selectThePlaylist = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='rrPlaylist5']")));
         selectThePlaylist.click();
     }
 
     public void deletePlaylistRedBtn () {
 //        WebElement deletePlaylistBtn = driver.findElement(By.cssSelector("[title='Delete this playlist']"));
-        WebElement deletePlaylistBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[title='Delete this playlist']")));
+        WebElement deletePlaylistBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[title='Delete this playlist']")));
         deletePlaylistBtn.click();
 
     }

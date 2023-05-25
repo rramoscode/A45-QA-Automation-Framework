@@ -7,7 +7,7 @@ public class Homework21 extends BaseTest{
 
         String newPlaylistName = "rrPlaylist4";
 
-        login("demo@class.com" , "te$t$tudent");
+        login("randy.ramos@testpro.io" , "te$t$tudent");
         doubleClickSelectPlaylist();
         doubleClickUpdatePlaylistName();
         Assert.assertTrue(newPlaylistNameExist());

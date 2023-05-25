@@ -7,12 +7,10 @@ import org.testng.annotations.Test;
 public class Homework18 extends BaseTest {
 
     @Test
-    public void playSong() throws InterruptedException {
+    public void playSong()  {
 
-        openloginUrl();
-        enterEmail("randy.ramos@testpro.io");
-        enterPassword("te$t$tudent");
-        clickSubmit();
+
+        login("randy.ramos@testpro.io" , "te$t$tudent");
         nxtSongBtn();
         PlayButton();
         Assert.assertTrue(soundbarVisualizer());
