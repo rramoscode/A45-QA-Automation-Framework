@@ -11,10 +11,6 @@
                     <include name = "successfulLoginTest"/>
                 </methods>
             </class>
-            <class name="Homework17"/>
-            <class name="Homework18"/>
-            <class name="Homework20"/>
-            <class name="Homework24"/>
             <class name="BaseTest"/>
         </classes>
     </test>
