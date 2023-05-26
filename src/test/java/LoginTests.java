@@ -24,7 +24,6 @@ public class LoginTests extends BaseTest {
     public void LoginEmptyEmailPasswordTest() {
 
         login("","");
-
 //    Verify user stays on login page using Assert method
         String url = "https://bbb.testpro.io/";
         driver.get(url);
@@ -35,15 +34,25 @@ public class LoginTests extends BaseTest {
     @Test
     public void registrationNavigation() {
 
-    openloginUrl();
-
+        openloginUrl();
 //    find and click element registration link
         registrationLink();
-
 //    Verify redirect to Registration page using Assert method
         String expectedUrl = "https://bbb.testpro.io/registration.php";
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(actualUrl, expectedUrl);
 
+
+    }
+
+    @Test
+    public void LoginEmptyPasswordTest () {
+
+    LoginPage loginPage = new LoginPage(getDriver());
+
+    loginPage.enterEmail("randy.ramos@testpro.io");
+    loginPage.enterPassword("");
+    loginPage.clickSubmit();
+    Assert.assertTrue(loginPage.isPageOpened());
     }
 }

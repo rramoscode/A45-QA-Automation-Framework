@@ -34,4 +34,8 @@ public class LoginPage extends BasePage {
         clickSubmit();
 
     }
+
+    public boolean isPageOpened() {
+        return findElement(emailField).isDisplayed();
+    }
 }
