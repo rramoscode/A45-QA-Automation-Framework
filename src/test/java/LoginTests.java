@@ -25,7 +25,7 @@ public class LoginTests extends BaseTest {
 
         login("","");
 //    Verify user stays on login page using Assert method
-        String url = "https://bbb.testpro.io/";
+        String url = "https://qa.koel.app/";
         driver.get(url);
         Assert.assertEquals(driver.getCurrentUrl(), url);
 
@@ -38,7 +38,7 @@ public class LoginTests extends BaseTest {
 //    find and click element registration link
         registrationLink();
 //    Verify redirect to Registration page using Assert method
-        String expectedUrl = "https://bbb.testpro.io/registration.php";
+        String expectedUrl = "https://qa.koel.app/registration.php";
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(actualUrl, expectedUrl);
 

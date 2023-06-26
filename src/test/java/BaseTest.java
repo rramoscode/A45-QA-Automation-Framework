@@ -60,7 +60,7 @@ public class BaseTest {
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 // instance - initializes the wait variable with a new WebDriverWait object that will wait up to 10 seconds for the expected condition to be met.
-        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
 // create the actions object and passing the driver
         actions = new Actions(getDriver());
         getDriver().get(Hw19BaseURL);
@@ -134,7 +134,7 @@ public class BaseTest {
     }
 
     public void openloginUrl() {
-        driver.get("https://bbb.testpro.io/");
+        driver.get("https://qa.koel.app");
     }
 
     public void login(String email, String password) {
